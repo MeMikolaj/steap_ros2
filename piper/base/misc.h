@@ -3,19 +3,21 @@
  *  @brief  miscellaneous functions
  *  @author Mustafa Mukadam
  *  @date   Dec 13, 2016
+ * 
+ *  @details ROS2 modifications made by by Mikolaj Kliniewski Oct 3, 2024
  **/
 
 #ifndef MISC_H_
 #define MISC_H_
 
-#include <signal.h>
+#include <csignal>
 #include <vector>
+#include <stdint.h>
+#include <string>
 
-#include <ros/ros.h>
-#include <ros/console.h>
-
+#include <rclcpp/rclcpp.hpp> // Include for ROS 2
+#include <rclcpp/node.hpp>
 #include <gtsam/base/Vector.h>
-
 
 namespace piper {
 
@@ -27,7 +29,7 @@ namespace piper {
 static const gtsam::Vector getVector(const std::vector<double>& v)
 {
   gtsam::Vector send(v.size());
-  for (size_t i=0; i<v.size(); i++)
+  for (std::size_t i = 0u; i < v.size(); i++)
     send[i] = v[i];
   return send;
 }
@@ -37,11 +39,10 @@ static const gtsam::Vector getVector(const std::vector<double>& v)
  **/
 static void sigintHandler(int sig)
 {
-  ROS_FATAL("Quitting...");
-  ros::shutdown();
+  rclcpp::shutdown(); // Cleanly shutdown ROS 2
+  exit(EXIT_FAILURE); // Terminate the program
 }
 
+} // namespace piper
 
-} // piper namespace
-
-#endif
+#endif // MISC_H_

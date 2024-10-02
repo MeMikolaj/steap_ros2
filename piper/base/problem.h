@@ -3,7 +3,11 @@
  *  @brief  problem: load, create, etc
  *  @author Mustafa Mukadam
  *  @date   Dec 13, 2016
+ * 
+ *  @details ROS2 modifications made by by Mikolaj Kliniewski Oct 3, 2024
  **/
+
+
 
 #ifndef PROBLEM_H_
 #define PROBLEM_H_
@@ -11,9 +15,7 @@
 #include <vector>
 #include <string>
 
-#include <ros/ros.h>
-#include <ros/package.h>                                          /* to remove */
-#include "rclcpp/rclcpp.hpp" /* Added */
+#include "rclcpp/rclcpp.hpp"
 
 #include <gtsam/geometry/Pose2.h>
 #include <gpmp2/geometry/Pose2Vector.h>
@@ -21,8 +23,8 @@
 #include <gpmp2/planner/TrajOptimizerSetting.h>
 #include <gpmp2/utils/fileUtils.h>
 
-#include <robot.h>
-#include <misc.h>
+#include "robot.h"
+#include "misc.h"
 
 
 namespace piper {
@@ -47,14 +49,14 @@ class Problem
 
   public:
     /// Default constructor
-    Problem() {}
+    Problem(){}
 
     /**
      *  Loads problem from yaml file
      *
-     *  @param nh node handle for namespace
+     *  @param node shared pointer to the node
      **/
-    Problem(ros::NodeHandle nh);
+    Problem(const std::shared_ptr<rclcpp::Node> &node);
 
     /// Default destructor
     virtual ~Problem() {}

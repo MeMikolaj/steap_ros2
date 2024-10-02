@@ -3,6 +3,8 @@
  *  @brief  robot: load, create, etc
  *  @author Mustafa Mukadam
  *  @date   Dec 13, 2016
+ *
+ *  @details ROS2 modifications made by by Mikolaj Kliniewski Oct 3, 2024
  **/
 
 #ifndef ROBOT_H_
@@ -10,13 +12,13 @@
 
 #include <vector>
 
-#include <ros/ros.h>
+#include "rclcpp/rclcpp.hpp"
 
 #include <gtsam/geometry/Pose3.h>
 #include <gpmp2/kinematics/ArmModel.h>
 #include <gpmp2/kinematics/Pose2MobileArmModel.h>
 
-#include <misc.h>
+#include "misc.h"
 
 
 namespace piper {
@@ -45,9 +47,9 @@ class Robot
     /**
      *  Constructor loads robot parameters from yaml file and constructs a robot
      *
-     *  @param nh node handle for namespace
+     *  @param node shared pointer to the node
      **/
-    Robot(ros::NodeHandle nh);
+    Robot(const std::shared_ptr<rclcpp::Node> &node);
 
     /// Default destructor
     virtual ~Robot() {}

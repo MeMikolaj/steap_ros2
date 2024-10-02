@@ -3,6 +3,8 @@
  *  @brief  trajectory: action client, initialize, etc
  *  @author Mustafa Mukadam
  *  @date   Dec 13, 2016
+ * 
+ *  @details ROS2 modifications made by by Mikolaj Kliniewski Oct 3, 2024
  **/
 
 #ifndef TRAJ_H_
@@ -11,10 +13,10 @@
 #include <vector>
 #include <string>
 
-#include <ros/ros.h>
-#include <control_msgs/FollowJointTrajectoryAction.h>
-#include <actionlib/client/simple_action_client.h>
-#include <trajectory_msgs/JointTrajectory.h>
+#include <rclcpp/rclcpp.hpp>
+#include <control_msgs/action/follow_joint_trajectory.hpp>
+#include <rclcpp_action/rclcpp_action.hpp>
+#include <trajectory_msgs/msg/joint_trajectory.hpp>
 
 #include <gtsam/nonlinear/Values.h>
 #include <gtsam/inference/Symbol.h>
@@ -25,54 +27,54 @@
 #include <problem.h>
 #include <misc.h>
 
-
 namespace piper {
 
 class Traj
 {
-  public:
-    typedef actionlib::SimpleActionClient<control_msgs::FollowJointTrajectoryAction> TrajClient;
-    ros::Publisher est_traj_pub, plan_traj_pub;
+public:
+    using TrajClient = rclcpp_action::Client<control_msgs::action::FollowJointTrajectory>;
+    rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr est_traj_pub, 
+        plan_traj_pub;
     std::vector<std::string> arm_joint_names;
 
-  private:
+private:
     std::string trajectory_control_topic_, est_traj_pub_topic_, plan_traj_pub_topic_;
-    TrajClient* traj_client_;
-    control_msgs::FollowJointTrajectoryGoal traj_;
+    std::shared_ptr<TrajClient> traj_client_;
+    control_msgs::action::FollowJointTrajectory::Goal traj_;
 
-  public:
+public:
     /// Default constructor
     Traj() {}
 
     /**
-     *  setup traj client and load params
+     *  Setup traj client and load params
      *
-     *  @param nh node handle for namespace
+     *  @param node shared pointer to the rclcpp node
      **/
-    Traj(ros::NodeHandle nh);
+    Traj(rclcpp::Node::SharedPtr node);
 
     /// Default destructor
     virtual ~Traj() {}
-    
+
     /**
-     *  initialize trajectory for optimization
+     *  Initialize trajectory for optimization
      *
-     *  @param init_values initialized traj save in to this variable
+     *  @param init_values initialized traj saved in this variable
      *  @param problem all problem params and settings
      **/
     void initializeTrajectory(gtsam::Values& init_values, Problem& problem);
-    
+
     /**
-     *  initialize trajectory for optimization
+     *  Execute trajectory
      *
-     *  @param exec_values optimized, interpolated, and collision checked traj to execute
+     *  @param exec_values optimized, interpolated, and collision-checked traj to execute
      *  @param problem all problem params and settings
      *  @param exec_step number of points on the trajectory
      **/
     void executeTrajectory(gtsam::Values& exec_values, Problem& problem, size_t exec_step);
 
     /**
-     *  publish estimated trajectory
+     *  Publish estimated trajectory
      *
      *  @param values estimated part of traj
      *  @param problem all problem params and settings
@@ -81,7 +83,7 @@ class Traj
     void publishEstimatedTrajectory(gtsam::Values& values, Problem& problem, size_t step);
 
     /**
-     *  publish planned trajectory
+     *  Publish planned trajectory
      *
      *  @param values planned part of traj
      *  @param problem all problem params and settings
@@ -90,6 +92,6 @@ class Traj
     void publishPlannedTrajectory(gtsam::Values& values, Problem& problem, size_t step);
 };
 
-} // piper namespace
+} // namespace piper
 
 #endif
