@@ -12,7 +12,8 @@
 #include <string>
 
 #include <ros/ros.h>
-#include <ros/package.h>
+#include <ros/package.h>                                          /* to remove */
+#include "rclcpp/rclcpp.hpp" /* Added */
 
 #include <gtsam/geometry/Pose2.h>
 #include <gpmp2/geometry/Pose2Vector.h>

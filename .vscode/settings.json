@@ -1,0 +1,20 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/mikolaj@acfr.usyd.edu.au/ros2_ws/install/dyno_control/local/lib/python3.10/dist-packages",
+        "/home/mikolaj@acfr.usyd.edu.au/ros2_ws/install/my_interfaces/local/lib/python3.10/dist-packages",
+        "/home/mikolaj@acfr.usyd.edu.au/tut_ros2_ws/install/my_py_pkg/local/lib/python3.10/dist-packages",
+        "/home/mikolaj@acfr.usyd.edu.au/tut_ros2_ws/install/my_py_pkg/lib/python3.10/site-packages",
+        "/home/mikolaj@acfr.usyd.edu.au/tut_ros2_ws/install/my_robot_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/mikolaj@acfr.usyd.edu.au/ros2_ws/install/dyno_control/local/lib/python3.10/dist-packages",
+        "/home/mikolaj@acfr.usyd.edu.au/ros2_ws/install/my_interfaces/local/lib/python3.10/dist-packages",
+        "/home/mikolaj@acfr.usyd.edu.au/tut_ros2_ws/install/my_py_pkg/local/lib/python3.10/dist-packages",
+        "/home/mikolaj@acfr.usyd.edu.au/tut_ros2_ws/install/my_py_pkg/lib/python3.10/site-packages",
+        "/home/mikolaj@acfr.usyd.edu.au/tut_ros2_ws/install/my_robot_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}
